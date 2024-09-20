@@ -1,4 +1,4 @@
-### **Cross-Border and Cross-Chain Payments**
+Cross-Border and Cross-Chain Payments
 
 Objective: Enable instant cross-border 
 and cross-chain payments 
@@ -10,7 +10,7 @@ using multiple blockchain frameworks
 
 Code Example:
 
-```solidity
+solidity
 // Ethereum smart contract for cross-chain remittance
 pragma solidity ^0.8.0;
 
@@ -31,4 +31,4 @@ contract CrossChainRemittance {
         // Implementation to notify Solana chain
     }
 }
-```
+
