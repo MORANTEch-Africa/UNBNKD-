@@ -1,6 +1,6 @@
 Code Example:
 
-```javascript
+javascript
 // Example implementation of a mobile wallet
 class MultiChainWallet {
     constructor() {
