@@ -1,0 +1,17 @@
+Code Example:
+
+javascript
+// Payment gateway implementation
+class PaymentGateway {
+    async processPayment(chain, amount, merchantId) {
+        // Logic to verify merchant and process payment
+        console.log(`Processing ${amount} payment to merchant ${merchantId} on ${chain}`);
+        // Implement payment logic with Reclaim verification
+        const success = await this.verifyMerchant(merchantId);
+        if (success) {
+            // Logic to deduct amount from the user's wallet
+            console.log(`Payment of ${amount} successful`);
+        } else {
+            console.log("Merchant verification failed");
+        }
+    }
