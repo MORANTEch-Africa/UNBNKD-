@@ -1,0 +1,21 @@
+Code Example:
+javascript
+class CrossChainDebitCard {
+    constructor() {
+        this.cardBalances = {};
+    }
+
+    loadCard(cardId, amount, chain) {
+        this.cardBalances[cardId] = (this.cardBalances[cardId] || 0) + amount;
+        console.log(`Loaded ${amount} to card ${cardId} on ${chain}`);
+    }
+
+    async makePurchase(cardId, amount, currency) {
+        if (this.cardBalances[cardId] >= amount) {
+            this.cardBalances[cardId] -= amount;
+            console.log(`Purchase of ${amount} ${currency} made with card ${cardId}`);
+        } else {
+            console.log("Insufficient balance on card");
+        }
+    }
+}
