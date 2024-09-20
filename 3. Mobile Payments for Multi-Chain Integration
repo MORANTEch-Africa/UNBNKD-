@@ -1,0 +1,28 @@
+Code Example:
+
+```javascript
+// Example implementation of a mobile wallet
+class MultiChainWallet {
+    constructor() {
+        this.balances = {};
+    }
+
+    async addFunds(chain, amount) {
+        this.balances[chain] = (this.balances[chain] || 0) + amount;
+        console.log(`Added ${amount} to ${chain} wallet`);
+    }
+
+    async makePayment(chain, recipient, amount) {
+        if (this.balances[chain] >= amount) {
+            this.balances[chain] -= amount;
+            console.log(`Paid ${amount} from ${chain} to ${recipient}`);
+            // Implement actual payment logic here
+        } else {
+            console.log("Insufficient funds");
+        }
+    }
+
+    async getBalance(chain) {
+        return this.balances[chain] || 0;
+    }
+}
