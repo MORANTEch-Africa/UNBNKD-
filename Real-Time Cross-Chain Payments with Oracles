@@ -1,0 +1,14 @@
+Code Example:
+javascript
+const { ChainlinkClient } = require('chainlink-sdk');
+
+async function getExchangeRate(token1, token2) {
+    const client = new ChainlinkClient();
+    try {
+        const rate = await client.getRate(token1, token2);
+        console.log(`Exchange rate from ${token1} to ${token2} is ${rate}`);
+        return rate;
+    } catch (error) {
+        console.error("Error fetching exchange rate:", error);
+    }
+}
