@@ -1,0 +1,25 @@
+Cross-Chain P2P Payments
+- Protocols: Wormhole + Flow + Solana + Ethereum
+- Innovation: Facilitate seamless transfers between different blockchains.
+
+Code Example:
+
+javascript
+const { WormholeClient } = require('wormhole-sdk');
+
+async function sendPayment(sender, recipient, amount, chain) {
+    const client = new WormholeClient();
+    await client.initialize();
+
+    try {
+        const result = await client.transfer({
+            sender,
+            recipient,
+            amount,
+            chain,
+        });
+        console.log(`Payment of ${amount} sent from ${sender} to ${recipient} on ${chain}`);
+    } catch (error) {
+        console.error("Payment failed:", error);
+    }
+}
