@@ -1,0 +1,17 @@
+Code Example:
+javascript
+const { ChainlinkClient } = require('chainlink-sdk');
+
+async function initiateCrossChainTransaction(sender, recipient, amount, token) {
+    const rate = await getExchangeRate(token, 'USD'); // Example to get USD rate
+    const adjustedAmount = amount  rate;
+
+    console.log(`Initiating transaction of ${adjustedAmount} USD from ${sender} to ${recipient}`);
+    // Add transaction logic here
+}
+
+async function getExchangeRate(token1, token2) {
+    const client = new ChainlinkClient();
+    const rate = await client.getRate(token1, token2);
+    return rate;
+}
