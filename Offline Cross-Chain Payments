@@ -1,0 +1,22 @@
+Code Example:
+javascript
+class OfflinePayment {
+    constructor() {
+        this.transactions = [];
+    }
+
+    createTransaction(chain, recipient, amount) {
+        const transaction = { chain, recipient, amount, status: 'pending' };
+        this.transactions.push(transaction);
+        console.log(`Offline transaction created: ${JSON.stringify(transaction)}`);
+    }
+
+    async syncTransactions() {
+        for (const transaction of this.transactions) {
+            // Logic to send transaction to the blockchain
+            console.log(`Sending transaction: ${JSON.stringify(transaction)}`);
+            transaction.status = 'completed';
+        }
+        this.transactions = this.transactions.filter(tx => tx.status !== 'completed');
+    }
+}
