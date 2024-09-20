@@ -1,0 +1,29 @@
+Code Example:
+javascript
+class MultiChainWallet {
+    constructor() {
+        this.balances = {};
+    }
+
+    async addToken(chain, token, amount) {
+        if (!this.balances[chain]) {
+            this.balances[chain] = {};
+        }
+        this.balances[chain][token] = (this.balances[chain][token] || 0) + amount;
+        console.log(`Added ${amount} ${token} to ${chain} wallet`);
+    }
+
+    async makePayment(chain, token, recipient, amount) {
+        if (this.balances[chain] && this.balances[chain][token] >= amount) {
+            this.balances[chain][token] -= amount;
+            console.log(`Paid ${amount} ${token} from ${chain} wallet to ${recipient}`);
+            // Actual payment logic here
+        } else {
+            console.log("Insufficient funds");
+        }
+    }
+
+    async getBalance(chain, token) {
+        return (this.balances[chain] && this.balances[chain][token]) || 0;
+    }
+}
