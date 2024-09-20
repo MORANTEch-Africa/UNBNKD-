@@ -1,0 +1,31 @@
+Code Example:
+javascript
+class CrossChainLoanSystem {
+    constructor() {
+        this.loans = {};
+    }
+
+    requestLoan(loanId, borrower, amount, collateralChain) {
+        this.loans[loanId] = { borrower, amount, collateralChain, status: 'requested' };
+        console.log(`Loan requested: ${loanId} for ${borrower} of amount ${amount} on ${collateralChain}`);
+    }
+
+    approveLoan(loanId) {
+        const loan = this.loans[loanId];
+        if (loan && loan.status === 'requested') {
+            loan.status = 'approved';
+            console.log(`Loan ${loanId} approved for ${loan.borrower}`);
+            // Logic to transfer funds to borrower
+        }
+    }
+
+    repayLoan(loanId) {
+        const loan = this.loans[loanId];
+        if (loan && loan.status === 'approved') {
+            loan.status = 'repaid';
+            console.log(`Loan ${loanId} has been repaid by ${loan.borrower}`);
+        } else {
+            console.log("Loan not found or not approved");
+        }
+    }
+}
