@@ -1,0 +1,23 @@
+Code Example:
+javascript
+// Escrow contract using JavaScript-like syntax
+class PaymentEscrow {
+    constructor() {
+        this.escrows = {};
+    }
+
+    createEscrow(transactionId, sender, recipient, amount) {
+        this.escrows[transactionId] = { sender, recipient, amount, status: 'pending' };
+        console.log(`Escrow created for transaction ${transactionId}`);
+    }
+
+    releaseFunds(transactionId) {
+        const escrow = this.escrows[transactionId];
+        if (escrow && escrow.status === 'pending') {
+            // Logic to release funds
+            console.log(`Released ${escrow.amount} to ${escrow.recipient}`);
+            escrow.status = 'completed';
+        } else {
+            console.log("Escrow not found or already completed");
+        }
+    }
