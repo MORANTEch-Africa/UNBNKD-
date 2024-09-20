@@ -1,0 +1,22 @@
+Code Example:
+javascript
+class CrossChainLoan {
+    constructor() {
+        this.loans = {};
+    }
+
+    createLoan(loanId, borrower, amount, collateralChain) {
+        this.loans[loanId] = { borrower, amount, collateralChain, status: 'active' };
+        console.log(`Loan created: ${loanId} for ${borrower} of amount ${amount} on ${collateralChain}`);
+    }
+
+    repayLoan(loanId) {
+        const loan = this.loans[loanId];
+        if (loan && loan.status === 'active') {
+            loan.status = 'repaid';
+            console.log(`Loan ${loanId} has been repaid by ${loan.borrower}`);
+        } else {
+            console.log("Loan not found or already repaid");
+        }
+    }
+}
