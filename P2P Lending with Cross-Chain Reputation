@@ -1,0 +1,36 @@
+Code Example (P2P Lending with Cross-Chain Reputation):
+```solidity
+// Solidity contract for P2P lending
+pragma solidity ^0.8.0;
+
+contract P2PLending {
+    struct Loan {
+        address lender;
+        address borrower;
+        uint256 amount;
+        bool repaid;
+    }
+
+    mapping(address => Loan[]) public loans;
+    mapping(address => uint256) public reputationScores;
+
+    event LoanCreated(address indexed lender, address indexed borrower, uint256 amount);
+    event LoanRepaid(address indexed borrower, uint256 amount);
+
+    function lend(address _borrower, uint256 _amount) public {
+        loans[_borrower].push(Loan(msg.sender, _borrower, _amount, false));
+        emit LoanCreated(msg.sender, _borrower, _amount);
+    }
+
+    function repayLoan(uint256 _loanIndex) public payable {
+        require(msg.value == loans[msg.sender][_loanIndex].amount, "Incorrect loan repayment amount");
+        loans[msg.sender][_loanIndex].repaid = true;
+        emit LoanRepaid(msg.sender, msg.value);
+        reputationScores[msg.sender]++; // Increase reputation on successful repayment
+    }
+
+    function checkReputation(address _borrower) public view returns (uint256) {
+        // Fetch cross-chain reputation using Reclaim
+        return reputationScores[_borrower];
+    }
+}
