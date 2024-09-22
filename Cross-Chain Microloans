@@ -1,0 +1,34 @@
+ Code Example (Cross-Chain Microloans via Reclaim):
+```solidity
+// Solidity contract for Cross-Chain Microloans
+
+pragma solidity ^0.8.0;
+
+contract CrossChainMicroloans {
+    struct Loan {
+        address borrower;
+        uint256 amount;
+        bool repaid;
+    }
+
+    mapping(address => Loan[]) public loans;
+
+    event LoanRequested(address indexed borrower, uint256 amount);
+    event LoanRepaid(address indexed borrower, uint256 amount);
+
+    function requestLoan(uint256 _amount) public {
+        loans[msg.sender].push(Loan(msg.sender, _amount, false));
+        emit LoanRequested(msg.sender, _amount);
+    }
+
+    function repayLoan(uint256 _loanIndex) public payable {
+        require(msg.value == loans[msg.sender][_loanIndex].amount, "Incorrect loan repayment amount");
+        loans[msg.sender][_loanIndex].repaid = true;
+        emit LoanRepaid(msg.sender, msg.value);
+    }
+
+    function checkCreditworthiness(address _borrower) external view returns (bool) {
+        // Integrate with Reclaim for creditworthiness
+        return true; // For simplicity, assume all borrowers are creditworthy
+    }
+}
