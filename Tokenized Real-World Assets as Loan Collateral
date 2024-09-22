@@ -1,0 +1,31 @@
+
+ Code Example (Tokenized Real-World Assets for Collateral):
+```solidity
+// Solidity contract for tokenized collateral
+pragma solidity ^0.8.0;
+
+contract TokenizedCollateral {
+    struct Collateral {
+        address owner;
+        string assetType;  // Property, Vehicle, etc.
+        uint256 value;
+        bool usedAsCollateral;
+    }
+
+    mapping(uint256 => Collateral) public collaterals;
+    uint256 public collateralCounter;
+
+    event AssetTokenized(address indexed owner, string assetType, uint256 value);
+
+    function tokenizeAsset(string memory _assetType, uint256 _value) public {
+        collateralCounter++;
+        collaterals[collateralCounter] = Collateral(msg.sender, _assetType, _value, false);
+        emit AssetTokenized(msg.sender, _assetType, _value);
+    }
+
+    function useAsCollateral(uint256 _collateralId, uint256 _loanAmount) public {
+        require(!collaterals[_collateralId].usedAsCollateral, "Collateral already used");
+        collaterals[_collateralId].usedAsCollateral = true;
+        // Logic to issue loan based on collateral value
+    }
+}
