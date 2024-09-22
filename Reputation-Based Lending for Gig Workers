@@ -1,0 +1,33 @@
+ Code Example (Reputation-Based Lending):
+```solidity
+// Solidity contract for reputation-based lending
+pragma solidity ^0.8.0;
+
+contract ReputationLending {
+    struct LoanRequest {
+        address borrower;
+        uint256 amount;
+        bool approved;
+    }
+
+    mapping(address => LoanRequest[]) public loanRequests;
+
+    event LoanRequested(address indexed borrower, uint256 amount);
+    event LoanApproved(address indexed borrower, uint256 amount);
+
+    function requestLoan(uint256 _amount) public {
+        loanRequests[msg.sender].push(LoanRequest(msg.sender, _amount, false));
+        emit LoanRequested(msg.sender, _amount);
+    }
+
+    function assessReputation(address _borrower) public view returns (bool) {
+        // Integrate with Reclaim for gig worker reputation (e.g., Namma Yatri drivers)
+        return true; // Assuming reputation is good for simplicity
+    }
+
+    function approveLoan(uint256 _loanIndex) public {
+        require(assessReputation(msg.sender), "Reputation not good enough");
+        loanRequests[msg.sender][_loanIndex].approved = true;
+        emit LoanApproved(msg.sender, loanRequests[msg.sender][_loanIndex].amount);
+    }
+}
